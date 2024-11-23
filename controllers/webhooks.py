@@ -1,9 +1,17 @@
 from flask import jsonify
+from controllers.bookings import fetch_booking_details
 
 
 def handle_create(req):
     booking_id = req.get("booking_id")
+    booking_hash = req.get("booking_hash")
+
+    booking_details = fetch_booking_details(
+        booking_id=booking_id, booking_hash=booking_hash
+    )
+
     print(f"TRIGGER: a booking with id {booking_id} was created")
+    print(f"{booking_details}")
     return jsonify({"status": "create processed"}), 200
 
 
