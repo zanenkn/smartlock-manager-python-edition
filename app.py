@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 import os
+import logging
 from dotenv import load_dotenv
 from util.verify_webhook_signature import verify_webhook_signature
 from controllers.webhooks import handle_create, handle_update, handle_cancel
@@ -30,4 +31,10 @@ def webhook_catcher():
 
 
 if __name__ == "__main__":
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    )
+
+    app.logger.setLevel(logging.INFO)
     app.run(host="0.0.0.0", port=port, debug=True)
